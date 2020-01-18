@@ -35,6 +35,6 @@ object CommandExecutor {
 
     val player = sender.asInstanceOf[Player]
 
-    player.sendMessage(s"your main hand item is ${if (MagicWand.isMatches(player.getInventory.getItemInMainHand)) "" else "not"} magicwand")
+    player.sendMessage(s"your main hand item is ${if (MagicWand.isMatches(player.getInventory.getItemInMainHand)) "" else "not "}magicwand")
   }
 }
