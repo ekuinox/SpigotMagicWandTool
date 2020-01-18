@@ -1,0 +1,5 @@
+name: SpigotMagicWandTool
+version: 0.0.1
+main: dev.ekuinox.spigot_magic_wand_tool.SpigotMagicWandTool
+api-version: "1.15"
+description: "Adds magic wand tool to specify freedom area"
