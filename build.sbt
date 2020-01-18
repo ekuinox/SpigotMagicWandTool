@@ -7,4 +7,11 @@ scalaVersion := "2.13.1"
 resolvers += "spigot-repo" at "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
 resolvers += "bungeecord-repo" at "https://oss.sonatype.org/content/repositories/snapshots"
 resolvers += Resolver.jcenterRepo
-libraryDependencies += "org.spigotmc" % "spigot-api" % "1.15.1-R0.1-SNAPSHOT"
+resolvers += Resolver.sonatypeRepo("releases")
+
+libraryDependencies ++= Seq(
+  "org.spigotmc" % "spigot-api" % "1.15.1-R0.1-SNAPSHOT",
+  "org.scalactic" %% "scalactic" % "3.1.0",
+  "org.scalatest" %% "scalatest" % "3.1.0" % "test",
+  "org.specs2" %% "specs2-mock" % "4.8.1" % "test"
+)
