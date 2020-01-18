@@ -1,6 +1,6 @@
 # SpigotMagicWandTool
 
-[![Actions Status](https://github.com/ekuinox/spigot-tips/workflows/SpigotMagicWandTool/badge.svg)](https://github.com/ekuinox/SpigotMagicWandTool/actions)
+[![Actions Status](https://github.com/ekuinox/SpigotMagicWandTool/workflows/SpigotMagicWandTool/badge.svg)](https://github.com/ekuinox/SpigotMagicWandTool/actions)
 
 ## 目標
 
