@@ -3,3 +3,14 @@ version: 0.0.1
 main: dev.ekuinox.spigot_magic_wand_tool.SpigotMagicWandTool
 api-version: "1.15"
 description: "Adds magic wand tool to specify freedom area"
+commands:
+  magicwand:
+    description: magic wand
+    usage: /magicwand
+permissions:
+  magicwand.*:
+    default: op
+  magicwand.give:
+    default: op
+  magicwand.check:
+    default: true
