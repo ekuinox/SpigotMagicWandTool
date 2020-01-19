@@ -7,7 +7,7 @@ import org.specs2.mock.Mockito
 
 class MagicWandSpecs extends FunSuite with Mockito {
 
-  test("is collected magic wand") {
+  test("is collect magic wand") {
     val magicWandItemMetaMock = mock[ItemMeta]
     val magicWandMock = mock[MagicWand]
 
