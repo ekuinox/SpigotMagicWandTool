@@ -3,6 +3,7 @@ package dev.ekuinox.spigot_magic_wand_tool
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.{EventHandler, Listener}
+import org.bukkit.inventory.ItemStack
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.scheduler.BukkitRunnable
 
@@ -23,6 +24,7 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
     }
   }
   import InteractEventTimer._
+  import MagicWand._
 
   /**
    * このListenerをPluginManagerに登録する
@@ -34,6 +36,19 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
   @EventHandler
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
 
+
+    val player = event.getPlayer
+    if (isActiveTimer(player)) return
+
+    val item = player.getInventory.getItemInMainHand
+    if (isMatches(item)) return
+
+    val clickedBlock = Option(event.getClickedBlock)
+    if (clickedBlock.isEmpty) return
+
+    player.sendMessage(s"clickedLocation => ${clickedBlock.get.getLocation}")
+
+    enableTimer(player)
   }
 
 }
