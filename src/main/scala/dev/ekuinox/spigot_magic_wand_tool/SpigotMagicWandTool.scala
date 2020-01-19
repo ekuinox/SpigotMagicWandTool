@@ -7,6 +7,7 @@ class SpigotMagicWandTool extends JavaPlugin {
   override def onEnable(): Unit = {
     super.onEnable()
     getCommand("magicwand").setExecutor(new CommandExecutor)
+    getServer.getPluginManager.registerEvents(new PlayerInteractEventListener(), this)
   }
 
 }
