@@ -35,8 +35,6 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
 
   @EventHandler
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
-
-
     val player = event.getPlayer
     if (isActiveTimer(player)) return
 
