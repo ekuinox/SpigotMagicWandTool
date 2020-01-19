@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import org.scalatest._
 import org.specs2.mock.Mockito
+import scala.jdk.CollectionConverters._
 
 class MagicWandSpecs extends FunSuite with Mockito {
 
@@ -14,6 +15,8 @@ class MagicWandSpecs extends FunSuite with Mockito {
     val magicWandMock = mock[MagicWand]
 
     magicWandItemMetaMock.getDisplayName returns MagicWand.DISPLAY_NAME
+    magicWandItemMetaMock.getLore returns MagicWand.LORE.asJava
+    magicWandItemMetaMock.hasLore returns true
     magicWandMock.getItemMeta returns magicWandItemMetaMock
     magicWandMock.getType returns MagicWand.MATERIAL
 
