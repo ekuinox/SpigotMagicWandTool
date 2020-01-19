@@ -14,14 +14,12 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
   object InteractEventTimer {
     private val KEY = "MAGIC_WAND_INTERACT_EVENT_TIMER"
     private val DELAY = 10
-    implicit def convert(player: Player) = new {
-      def isActiveTimer: Boolean = try { player.getMetadata(InteractEventTimer.KEY).get(0).asBoolean() } catch { case _: Throwable => false }
-      def enableTimer(): Unit = {
-        player.setMetadata(KEY, new FixedMetadataValue(plugin, true))
-        new BukkitRunnable {
-          override def run(): Unit = player.setMetadata(KEY, new FixedMetadataValue(plugin, false))
-        }.runTaskLater(plugin, DELAY)
-      }
+    def isActiveTimer(player: Player): Boolean = try { player.getMetadata(InteractEventTimer.KEY).get(0).asBoolean() } catch { case _: Throwable => false }
+    def enableTimer(player: Player): Unit = {
+      player.setMetadata(KEY, new FixedMetadataValue(plugin, true))
+      new BukkitRunnable {
+        override def run(): Unit = player.setMetadata(KEY, new FixedMetadataValue(plugin, false))
+      }.runTaskLater(plugin, DELAY)
     }
   }
   import InteractEventTimer._
