@@ -41,7 +41,7 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
     if (isActiveTimer(player)) return
 
     val item = player.getInventory.getItemInMainHand
-    if (isMatches(item)) return
+    if (!isMatches(item)) return
 
     val clickedBlock = Option(event.getClickedBlock)
     if (clickedBlock.isEmpty) return
