@@ -18,8 +18,8 @@ class MagicWand extends ItemStack(MagicWand.MATERIAL) {
 }
 
 object MagicWand {
-  private val MATERIAL = Material.STICK
-  private val DISPLAY_NAME = "MagicWand"
+  val MATERIAL = Material.STICK
+  val DISPLAY_NAME = "MagicWand"
 
   def isMatches(itemStack: ItemStack): Boolean = itemStack.getType == MATERIAL && itemStack.getItemMeta.getDisplayName == DISPLAY_NAME
 
