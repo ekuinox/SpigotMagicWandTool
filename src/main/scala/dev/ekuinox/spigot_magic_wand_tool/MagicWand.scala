@@ -34,4 +34,7 @@ object MagicWand {
 
   def apply(): MagicWand = new MagicWand()
 
+  implicit def convert(itemStack: ItemStack) = new {
+    def isMagicWand: Boolean = isMatches(itemStack)
+  }
 }
