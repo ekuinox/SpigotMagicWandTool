@@ -29,7 +29,6 @@ class MagicWandSpecs extends FunSuite with Mockito {
     itemMock.getType returns Material.ACACIA_BOAT
 
     assert(!MagicWand.isMatches(itemMock))
-
   }
 
 }
