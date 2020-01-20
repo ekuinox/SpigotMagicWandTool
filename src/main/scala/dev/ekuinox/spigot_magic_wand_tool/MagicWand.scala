@@ -17,7 +17,7 @@ class MagicWand(plugin: Plugin) extends ItemStack(MagicWand.MATERIAL) {
   this.setItemMeta({
     val meta = this.getItemMeta
     val container = meta.getPersistentDataContainer
-    container.set(new NamespacedKey(SpigotMagicWandTool.getInstance.get, KEY), PersistentDataType[String, Boolean], true)
+    container.set(new NamespacedKey(SpigotMagicWandTool.getInstance.get, KEY), PersistentDataType.STRING, "true")
     meta.setDisplayName(DISPLAY_NAME)
     meta.setLore(LORE.asJava)
     meta
