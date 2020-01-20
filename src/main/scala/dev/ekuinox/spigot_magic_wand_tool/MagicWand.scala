@@ -1,7 +1,8 @@
 package dev.ekuinox.spigot_magic_wand_tool
 
-import org.bukkit.Material
+import org.bukkit.{Material, NamespacedKey}
 import org.bukkit.inventory.ItemStack
+import org.bukkit.persistence.PersistentDataType
 import org.bukkit.plugin.Plugin
 
 import scala.jdk.CollectionConverters._
@@ -15,6 +16,8 @@ class MagicWand(plugin: Plugin) extends ItemStack(MagicWand.MATERIAL) {
 
   this.setItemMeta({
     val meta = this.getItemMeta
+    val container = meta.getPersistentDataContainer
+    container.set(new NamespacedKey(SpigotMagicWandTool.getInstance.get, KEY), PersistentDataType[String, Boolean], true)
     meta.setDisplayName(DISPLAY_NAME)
     meta.setLore(LORE.asJava)
     meta
@@ -26,6 +29,7 @@ object MagicWand {
   val MATERIAL = Material.STICK
   val DISPLAY_NAME = "MagicWand"
   val LORE = List("MagicWand")
+  val KEY = "MAGIC_WAND"
 
   def isMatches(itemStack: ItemStack): Boolean = {
     if (itemStack.getType != MATERIAL) return false
