@@ -2,13 +2,15 @@ package dev.ekuinox.spigot_magic_wand_tool
 
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
+import org.bukkit.plugin.Plugin
+
 import scala.jdk.CollectionConverters._
 
 /**
  * 自由選択を行うためのアイテム
  * displayNameにて判定する
  */
-class MagicWand extends ItemStack(MagicWand.MATERIAL) {
+class MagicWand(plugin: Plugin) extends ItemStack(MagicWand.MATERIAL) {
   import MagicWand._
 
   this.setItemMeta({
@@ -32,6 +34,6 @@ object MagicWand {
     itemStack.getItemMeta.getLore == LORE.asJava
   }
 
-  def apply(): MagicWand = new MagicWand()
+  def apply(plugin: Plugin): MagicWand = new MagicWand(plugin)
   
 }
