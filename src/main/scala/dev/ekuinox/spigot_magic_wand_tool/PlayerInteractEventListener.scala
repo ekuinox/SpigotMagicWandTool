@@ -37,6 +37,8 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
     val player = event.getPlayer
     if (isActiveTimer(player)) return
 
+    if (!player.hasPermission(permisisons.Set)) return
+
     val item = player.getInventory.getItemInMainHand
     if (!isMatches(item)) return
 
