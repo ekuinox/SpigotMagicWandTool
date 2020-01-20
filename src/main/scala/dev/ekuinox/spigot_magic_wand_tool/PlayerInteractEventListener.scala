@@ -42,9 +42,8 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
     if (!isMatches(item)) return
 
     for { clickedBlock <- Option(event.getClickedBlock) } {
-      // クリックした面のブロックを取得
-      val block = clickedBlock.getRelative(event.getBlockFace)
-      block.setType(Material.REDSTONE_LAMP)
+      // クリックした面の座標を取得
+      val location = clickedBlock.getRelative(event.getBlockFace).getLocation()
       enableTimer(player)
     }
   }
