@@ -1,9 +1,9 @@
 package dev.ekuinox.spigot_magic_wand_tool
 
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.{EventHandler, Listener}
-import org.bukkit.inventory.ItemStack
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.scheduler.BukkitRunnable
 
@@ -41,12 +41,12 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
     val item = player.getInventory.getItemInMainHand
     if (!isMatches(item)) return
 
-    val clickedBlock = Option(event.getClickedBlock)
-    if (clickedBlock.isEmpty) return
-
-    player.sendMessage(s"clickedLocation => ${clickedBlock.get.getLocation}")
-
-    enableTimer(player)
+    for { clickedBlock <- Option(event.getClickedBlock) } {
+      // クリックした面のブロックを取得
+      val block = clickedBlock.getRelative(event.getBlockFace)
+      block.setType(Material.REDSTONE_LAMP)
+      enableTimer(player)
+    }
   }
 
 }
