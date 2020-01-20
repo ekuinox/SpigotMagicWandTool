@@ -41,8 +41,9 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
     if (!isMatches(item)) return
 
     for { clickedBlock <- Option(event.getClickedBlock) } {
-      // クリックした面の座標を取得
+      // クリックした面の座標を取得して登録
       val location = clickedBlock.getRelative(event.getBlockFace).getLocation()
+      LocationsManager.add(player, location)
       enableTimer(player)
     }
   }
