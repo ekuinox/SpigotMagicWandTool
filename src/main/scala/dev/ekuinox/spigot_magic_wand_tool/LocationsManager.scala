@@ -14,7 +14,7 @@ object LocationsManager {
    * @param location Location
    * @return Int 追加した座標のインデックス
    */
-  def add(player: Player, location: Location): Int = {
+  def set(player: Player, location: Location): Int = {
     0
   }
 
