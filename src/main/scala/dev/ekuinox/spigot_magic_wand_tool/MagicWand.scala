@@ -33,5 +33,5 @@ object MagicWand {
   }
 
   def apply(): MagicWand = new MagicWand()
-
+  
 }
