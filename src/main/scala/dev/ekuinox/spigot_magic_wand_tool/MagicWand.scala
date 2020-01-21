@@ -11,7 +11,7 @@ import scala.jdk.CollectionConverters._
  * 自由選択を行うためのアイテム
  * displayNameにて判定する
  */
-class MagicWand(plugin: Plugin) extends ItemStack(MagicWand.MATERIAL) {
+class MagicWand(plugin: SpigotMagicWandTool) extends ItemStack(MagicWand.MATERIAL) {
   import MagicWand._
 
   this.setItemMeta({
@@ -31,13 +31,13 @@ object MagicWand {
   val LORE = List("MagicWand")
   val KEY = "MAGIC_WAND"
 
-  def isMatches(itemStack: ItemStack): Boolean = {
+  def isMatches(itemStack: ItemStack, plugin: SpigotMagicWandTool): Boolean = {
     if (itemStack.getType != MATERIAL) return false
     if (itemStack.getItemMeta.getDisplayName != DISPLAY_NAME) return false
     if (!itemStack.getItemMeta.hasLore) return false
     itemStack.getItemMeta.getLore == LORE.asJava
   }
 
-  def apply(plugin: Plugin): MagicWand = new MagicWand(plugin)
+  def apply(plugin: SpigotMagicWandTool): MagicWand = new MagicWand(plugin)
   
 }

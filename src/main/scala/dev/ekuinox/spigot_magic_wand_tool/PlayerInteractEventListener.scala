@@ -40,7 +40,7 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
     if (!player.hasPermission(permisisons.Set)) return
 
     val item = player.getInventory.getItemInMainHand
-    if (!isMatches(item)) return
+    if (!isMatches(item, plugin)) return
 
     for { clickedBlock <- Option(event.getClickedBlock) } {
       // クリックした面の座標を取得して登録

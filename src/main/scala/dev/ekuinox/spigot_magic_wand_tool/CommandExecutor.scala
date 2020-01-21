@@ -2,9 +2,8 @@ package dev.ekuinox.spigot_magic_wand_tool
 import org.bukkit.Material
 import org.bukkit.command.{Command, CommandSender}
 import org.bukkit.entity.Player
-import org.bukkit.plugin.Plugin
 
-class CommandExecutor(plugin: Plugin) extends org.bukkit.command.CommandExecutor {
+class CommandExecutor(plugin: SpigotMagicWandTool) extends org.bukkit.command.CommandExecutor {
   override def onCommand(sender: CommandSender, command: Command, label: String, args: Array[String]): Boolean = {
     if (args == null) return true
     if (args.isEmpty) {
@@ -21,7 +20,7 @@ class CommandExecutor(plugin: Plugin) extends org.bukkit.command.CommandExecutor
 }
 
 object CommandExecutor {
-  def give(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: Plugin): Unit = {
+  def give(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: SpigotMagicWandTool): Unit = {
     if (!sender.isInstanceOf[Player]) return
 
     val player = sender.asInstanceOf[Player]
@@ -31,11 +30,11 @@ object CommandExecutor {
     player.updateInventory()
   }
 
-  def check(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: Plugin): Unit = {
+  def check(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: SpigotMagicWandTool): Unit = {
     if (!sender.isInstanceOf[Player]) return
 
     val player = sender.asInstanceOf[Player]
 
-    player.sendMessage(s"your main hand item is ${if (MagicWand.isMatches(player.getInventory.getItemInMainHand)) "" else "not "}magicwand")
+    player.sendMessage(s"your main hand item is ${if (MagicWand.isMatches(player.getInventory.getItemInMainHand, plugin)) "" else "not "}magicwand")
   }
 }
