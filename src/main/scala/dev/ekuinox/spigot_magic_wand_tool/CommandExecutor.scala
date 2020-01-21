@@ -3,16 +3,12 @@ import org.bukkit.Material
 import org.bukkit.command.{Command, CommandSender}
 import org.bukkit.entity.Player
 
-class CommandExecutor extends org.bukkit.command.CommandExecutor {
+class CommandExecutor(plugin: SpigotMagicWandTool) extends org.bukkit.command.CommandExecutor {
   override def onCommand(sender: CommandSender, command: Command, label: String, args: Array[String]): Boolean = {
-    if (args == null) return true
-    if (args.isEmpty) {
-      return true
-    }
-
-    args(0) match {
-      case "give" => CommandExecutor.give(sender, command, label, args)
-      case "check" => CommandExecutor.check(sender, command, label, args)
+    args.toList.headOption.foreach {
+      case "give" => CommandExecutor.give(sender, command, label, args, plugin)
+      case "check" => CommandExecutor.check(sender, command, label, args, plugin)
+      case _ => //do nothing
     }
 
     true
@@ -20,21 +16,21 @@ class CommandExecutor extends org.bukkit.command.CommandExecutor {
 }
 
 object CommandExecutor {
-  def give(sender: CommandSender, command: Command, label: String, args: Array[String]): Unit = {
+  def give(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: SpigotMagicWandTool): Unit = {
     if (!sender.isInstanceOf[Player]) return
 
     val player = sender.asInstanceOf[Player]
     if (player.getInventory.getItemInMainHand.getType != Material.AIR) return
 
-    player.getInventory.setItemInMainHand(MagicWand())
+    player.getInventory.setItemInMainHand(MagicWand(plugin))
     player.updateInventory()
   }
 
-  def check(sender: CommandSender, command: Command, label: String, args: Array[String]): Unit = {
+  def check(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: SpigotMagicWandTool): Unit = {
     if (!sender.isInstanceOf[Player]) return
 
     val player = sender.asInstanceOf[Player]
 
-    player.sendMessage(s"your main hand item is ${if (MagicWand.isMatches(player.getInventory.getItemInMainHand)) "" else "not "}magicwand")
+    player.sendMessage(s"your main hand item is ${if (MagicWand.isMatches(player.getInventory.getItemInMainHand, plugin)) "" else "not "}magicwand")
   }
 }

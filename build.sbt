@@ -14,5 +14,6 @@ libraryDependencies ++= Seq(
   "org.spigotmc" % "spigot-api" % "1.15.1-R0.1-SNAPSHOT",
   "org.scalactic" %% "scalactic" % "3.1.0",
   "org.scalatest" %% "scalatest" % "3.1.0" % "test",
-  "org.specs2" %% "specs2-mock" % "4.8.1" % "test"
+  "org.specs2" %% "specs2-mock" % "4.8.1" % "test",
+  "org.mockito" %% "mockito-scala-cats" % "1.11.0" % "test"
 )
