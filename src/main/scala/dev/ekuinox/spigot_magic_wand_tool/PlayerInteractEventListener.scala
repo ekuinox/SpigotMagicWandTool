@@ -1,5 +1,6 @@
 package dev.ekuinox.spigot_magic_wand_tool
 
+import dev.ekuinox.spigot_magic_wand_tool.permisisons.Register
 import org.bukkit.entity.Player
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
@@ -45,6 +46,8 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
   @EventHandler
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
     if (!isMatches(event)) return
+
+    if (!event.getPlayer.hasPermission(Register)) return
 
     for { clickedBlock <- Option(event.getClickedBlock) } {
       val player = event.getPlayer

@@ -14,5 +14,7 @@ permissions:
     default: op
   magicwand.check:
     default: true
-  magicwand.set:
+  magicwand.register:
     default: true
+  magicwand.dump:
+    default: op
