@@ -16,3 +16,5 @@ permissions:
     default: true
   magicwand.set:
     default: true
+  magicwand.dump:
+    default: op
