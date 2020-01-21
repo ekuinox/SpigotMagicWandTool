@@ -28,16 +28,12 @@ object LocationsManager {
    * @param player Player
    * @return List[Location] 座標のリスト
    */
-  def get(player: Player): List[Location] = {
-    List[Location]()
-  }
+  def get(player: Player): List[Location] = Location.getLocations(player.getPersistentDataContainer).getOrElse(List())
 
   /**
    * 登録した座標をまとめて削除する
    * @param player Player
    */
-  def clear(player: Player): Unit = {
-
-  }
+  def clear(player: Player): Unit = Location.clearLocations(player.getPersistentDataContainer)
 
 }
