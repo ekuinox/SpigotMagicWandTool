@@ -33,19 +33,21 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
     plugin.getServer.getPluginManager.registerEvents(this, plugin)
   }
 
+  /**
+   * PlayerInteractEventが対象かチェック
+   */
+  def isMatches(event: PlayerInteractEvent): Boolean = {
+    event.getAction == Action.RIGHT_CLICK_BLOCK &&
+      !isActiveTimer(event.getPlayer) &&
+      MagicWand.isMatches(event.getPlayer.getPlayer.getInventory.getItemInMainHand, plugin)
+  }
+
   @EventHandler
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
-    val player = event.getPlayer
-    if (isActiveTimer(player)) return
-
-    if (!player.hasPermission(permisisons.Set)) return
-
-    if (event.getAction != Action.RIGHT_CLICK_BLOCK) return
-
-    val item = player.getInventory.getItemInMainHand
-    if (!isMatches(item, plugin)) return
+    if (!isMatches(event)) return
 
     for { clickedBlock <- Option(event.getClickedBlock) } {
+      val player = event.getPlayer
       // クリックした面の座標を取得して登録
       val location = clickedBlock.getRelative(event.getBlockFace).getLocation()
       val index = LocationsManager.set(player, location)
