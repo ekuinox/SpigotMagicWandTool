@@ -1,5 +1,5 @@
 package dev.ekuinox.spigot_magic_wand_tool
-import dev.ekuinox.spigot_magic_wand_tool.permisisons.Dump
+import dev.ekuinox.spigot_magic_wand_tool.permisisons.{Check, Dump, Give}
 import org.bukkit.Material
 import org.bukkit.command.{Command, CommandSender}
 import org.bukkit.entity.Player
@@ -22,6 +22,9 @@ object CommandExecutor {
     if (!sender.isInstanceOf[Player]) return
 
     val player = sender.asInstanceOf[Player]
+
+    if (!player.hasPermission(Give)) return
+
     if (player.getInventory.getItemInMainHand.getType != Material.AIR) return
 
     player.getInventory.setItemInMainHand(MagicWand(plugin))
@@ -32,6 +35,8 @@ object CommandExecutor {
     if (!sender.isInstanceOf[Player]) return
 
     val player = sender.asInstanceOf[Player]
+
+    if (!player.hasPermission(Check)) return
 
     player.sendMessage(s"your main hand item is ${if (MagicWand.isMatches(player.getInventory.getItemInMainHand, plugin)) "" else "not "}magicwand")
   }
