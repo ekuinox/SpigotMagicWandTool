@@ -5,14 +5,10 @@ import org.bukkit.entity.Player
 
 class CommandExecutor(plugin: SpigotMagicWandTool) extends org.bukkit.command.CommandExecutor {
   override def onCommand(sender: CommandSender, command: Command, label: String, args: Array[String]): Boolean = {
-    if (args == null) return true
-    if (args.isEmpty) {
-      return true
-    }
-
-    args(0) match {
+    args.toList.headOption.foreach {
       case "give" => CommandExecutor.give(sender, command, label, args, plugin)
       case "check" => CommandExecutor.check(sender, command, label, args, plugin)
+      case _ => //do nothing
     }
 
     true
