@@ -1,6 +1,7 @@
 package dev.ekuinox.spigot_magic_wand_tool
 
 import org.bukkit.entity.Player
+import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.{EventHandler, Listener}
 import org.bukkit.metadata.FixedMetadataValue
@@ -38,6 +39,8 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
     if (isActiveTimer(player)) return
 
     if (!player.hasPermission(permisisons.Set)) return
+
+    if (event.getAction != Action.RIGHT_CLICK_BLOCK) return
 
     val item = player.getInventory.getItemInMainHand
     if (!isMatches(item, plugin)) return
