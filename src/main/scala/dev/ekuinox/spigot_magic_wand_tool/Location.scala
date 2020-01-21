@@ -2,6 +2,7 @@ package dev.ekuinox.spigot_magic_wand_tool
 
 import org.bukkit.NamespacedKey
 import org.bukkit.persistence.{PersistentDataContainer, PersistentDataType}
+import org.bukkit.{Location => BukkitLocation}
 
 case class Location(index: Int, x: Int, y: Int, z: Int) {
   def toList = List(index, x, y, z)
@@ -13,6 +14,8 @@ case object Location {
   private val ARRAY_GROUPED_SIZE = 4
 
   def apply(location: Array[Int]): Location = new Location(location(0), location(1), location(2), location(3))
+
+  def apply(index: Int, location: BukkitLocation) = new Location(index, location.getX.toInt, location.getY.toInt, location.getZ.toInt)
 
   def getLocations(container: PersistentDataContainer): Option[List[Location]] = {
     if (!container.has(NAMESPACED_KEY, CONTAINER_DATA_TYPE)) return None
