@@ -28,4 +28,6 @@ case object Location {
     container.set(NAMESPACED_KEY, CONTAINER_DATA_TYPE, locations.flatMap(_.toList).toArray)
   }
 
+  def clearLocations(container: PersistentDataContainer): Unit = container.remove(NAMESPACED_KEY)
+
 }
