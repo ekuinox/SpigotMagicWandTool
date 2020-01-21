@@ -1,6 +1,6 @@
 package dev.ekuinox.spigot_magic_wand_tool
 
-import org.bukkit.Location
+import org.bukkit.{Location => BukkitLocation}
 import org.bukkit.entity.Player
 
 /**
@@ -14,8 +14,13 @@ object LocationsManager {
    * @param location Location
    * @return Int 追加した座標のインデックス
    */
-  def set(player: Player, location: Location): Int = {
-    0
+  def set(player: Player, location: BukkitLocation): Int = {
+    val newLocations = Location.getLocations(player.getPersistentDataContainer) match {
+      case Some(locations) => locations :+ Location(location)
+      case None => List(Location(location))
+    }
+    Location.storeLocations(player.getPersistentDataContainer, newLocations)
+    newLocations.length - 1
   }
 
   /**
