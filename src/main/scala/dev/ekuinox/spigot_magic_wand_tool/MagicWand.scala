@@ -17,7 +17,7 @@ class MagicWand(plugin: SpigotMagicWandTool) extends ItemStack(MagicWand.MATERIA
   this.setItemMeta({
     val meta = this.getItemMeta
     val container = meta.getPersistentDataContainer
-    container.set(new NamespacedKey(SpigotMagicWandTool.getInstance.get, KEY), PersistentDataType.STRING, "true")
+    container.set(plugin.makeNamespacedKey(KEY), PersistentDataType.STRING, "true")
     meta.setDisplayName(DISPLAY_NAME)
     meta.setLore(LORE.asJava)
     meta
@@ -35,7 +35,8 @@ object MagicWand {
     if (itemStack.getType != MATERIAL) return false
     if (itemStack.getItemMeta.getDisplayName != DISPLAY_NAME) return false
     if (!itemStack.getItemMeta.hasLore) return false
-    itemStack.getItemMeta.getLore == LORE.asJava
+    if (itemStack.getItemMeta.getLore != LORE.asJava) return false
+    itemStack.getItemMeta.getPersistentDataContainer.has(plugin.makeNamespacedKey(KEY), PersistentDataType.STRING)
   }
 
   def apply(plugin: SpigotMagicWandTool): MagicWand = new MagicWand(plugin)
