@@ -1,5 +1,6 @@
 package dev.ekuinox.spigot_magic_wand_tool
 
+import org.bukkit.NamespacedKey
 import org.bukkit.plugin.java.JavaPlugin
 
 class SpigotMagicWandTool extends JavaPlugin {
@@ -13,6 +14,8 @@ class SpigotMagicWandTool extends JavaPlugin {
     getCommand("magicwand").setExecutor(new CommandExecutor(this))
     playerInteractEventListener.register()
   }
+
+  def makeNamespacedKey(key: String) = new NamespacedKey(this, key)
 
 }
 
