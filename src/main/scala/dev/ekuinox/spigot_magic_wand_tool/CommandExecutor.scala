@@ -1,5 +1,4 @@
 package dev.ekuinox.spigot_magic_wand_tool
-import dev.ekuinox.spigot_magic_wand_tool.permisisons.{Check, Dump, Give}
 import org.bukkit.Material
 import org.bukkit.command.{Command, CommandSender}
 import org.bukkit.entity.Player
@@ -9,6 +8,7 @@ class CommandExecutor(plugin: SpigotMagicWandTool) extends org.bukkit.command.Co
     args.toList.headOption.foreach {
       case "give" => CommandExecutor.give(sender, command, label, args, plugin)
       case "check" => CommandExecutor.check(sender, command, label, args, plugin)
+      case "clear" => CommandExecutor.clear(sender, command, label, args, plugin)
       case "dump" => CommandExecutor.dump(sender, command, label, args, plugin)
       case _ => //do nothing
     }
@@ -23,7 +23,7 @@ object CommandExecutor {
 
     val player = sender.asInstanceOf[Player]
 
-    if (!player.hasPermission(Give)) return
+    if (!player.hasPermission(permisisons.Give)) return
 
     if (player.getInventory.getItemInMainHand.getType != Material.AIR) return
 
@@ -36,9 +36,19 @@ object CommandExecutor {
 
     val player = sender.asInstanceOf[Player]
 
-    if (!player.hasPermission(Check)) return
+    if (!player.hasPermission(permisisons.Check)) return
 
     player.sendMessage(s"your main hand item is ${if (MagicWand.isMatches(player.getInventory.getItemInMainHand, plugin)) "" else "not "}magicwand")
+  }
+
+  def clear(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: SpigotMagicWandTool): Unit = {
+    if (!sender.isInstanceOf[Player]) return
+
+    val player = sender.asInstanceOf[Player]
+
+    if (!player.hasPermission(permisisons.Write)) return
+
+    LocationsManager.clear(player)
   }
 
   def dump(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: SpigotMagicWandTool): Unit = {
@@ -52,7 +62,7 @@ object CommandExecutor {
     } else {
       val player = sender.asInstanceOf[Player]
 
-      if (!player.hasPermission(Dump)) return
+      if (!player.hasPermission(permisisons.Read)) return
 
       player.sendMessage(LocationsManager.get(player).toString())
     }
