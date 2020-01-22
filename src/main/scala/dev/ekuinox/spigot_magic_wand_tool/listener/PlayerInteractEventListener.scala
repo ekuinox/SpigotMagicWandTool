@@ -4,11 +4,11 @@ import dev.ekuinox.spigot_magic_wand_tool.{LocationsManager, MagicWand, SpigotMa
 import org.bukkit.entity.Player
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.event.{EventHandler, Listener}
+import org.bukkit.event.EventHandler
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.scheduler.BukkitRunnable
 
-class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener {
+class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener(plugin)  {
 
   /**
    * InteractEventが同時に2回呼ばれるのを防ぐため
@@ -25,13 +25,6 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
     }
   }
   import InteractEventTimer._
-
-  /**
-   * このListenerをPluginManagerに登録する
-   */
-  def register(): Unit = {
-    plugin.getServer.getPluginManager.registerEvents(this, plugin)
-  }
 
   /**
    * PlayerInteractEventが対象かチェック
