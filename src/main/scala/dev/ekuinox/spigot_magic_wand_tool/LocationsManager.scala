@@ -44,22 +44,22 @@ object LocationsManager {
   /**
    * 最後に登録した座標を削除する
    * @param player Player
-   * @return Int 変更後の最後のインデックス
+   * @return Option[(Int, Location)] 削除した要素とインデックス
    */
-  def undo(player: Player): Option[Int] = {
+  def undo(player: Player): Option[(Int, Location)] = {
     val container = player.getPersistentDataContainer
-
-    val newLocations = Location.getLocations(container) match {
-      case Some(locations) => locations.init
-      case None => List()
-    }
-
-    if (newLocations.isEmpty) {
-      Location.clearLocations(container)
-      None
-    } else {
+    for {
+      locations <- Location.getLocations(container)
+    } {
+      val newLocations = locations.init
+      if (newLocations.isEmpty) {
+        Location.clearLocations(container)
+        return Some((0, locations.last))
+      }
       Location.storeLocations(container, newLocations)
-      Some(newLocations.length - 1)
+      return Some((newLocations.length - 1, locations.last))
     }
+
+    None
   }
 }
