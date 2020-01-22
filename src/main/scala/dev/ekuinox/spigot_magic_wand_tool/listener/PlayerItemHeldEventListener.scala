@@ -13,17 +13,13 @@ class PlayerItemHeldEventListener(plugin: SpigotMagicWandTool) extends Listener(
     val inventory = player.getPlayer.getInventory
 
     val stopParticles = () => {
-      for {
-        locations <- LocationsManager.get(player)
-      } {
+      for { locations <- LocationsManager.get(player) } {
         locations.foreach(plugin.particleManager.stopParticle(player, _))
       }
     }
 
     val startParticles = () => {
-      for {
-        locations <- LocationsManager.get(player)
-      } {
+      for { locations <- LocationsManager.get(player) } {
         locations.foreach(plugin.particleManager.startParticle(player, player.getWorld, _))
       }
     }
