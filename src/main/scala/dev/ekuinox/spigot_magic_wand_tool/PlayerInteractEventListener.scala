@@ -48,12 +48,12 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
 
     if (!event.getPlayer.hasPermission(permisisons.Write)) return
 
-    for { clickedBlock <- Option(event.getClickedBlock) } {
-      val player = event.getPlayer
-      // クリックした面の座標を取得して登録
-      val location = clickedBlock.getRelative(event.getBlockFace).getLocation()
-      val index = LocationsManager.set(player, location)
-      player.sendMessage(s"registered location => {${location.getX}, ${location.getY}, ${location.getZ}, index => $index")
+    val player = event.getPlayer
+    for {
+      clickedBlock <- Option(event.getClickedBlock)
+      (index, location) <- LocationsManager.set(player, clickedBlock.getRelative(event.getBlockFace).getLocation())
+    } {
+      player.sendMessage(s"registered location => {${location.x}, ${location.y}, ${location.z}, index => $index")
       enableTimer(player)
     }
   }
