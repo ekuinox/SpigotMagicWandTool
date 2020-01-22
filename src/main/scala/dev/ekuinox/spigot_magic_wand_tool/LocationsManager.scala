@@ -16,7 +16,14 @@ object LocationsManager {
    */
   def set(player: Player, location: BukkitLocation): Int = {
     val newLocations = Location.getLocations(player.getPersistentDataContainer) match {
-      case Some(locations) => locations :+ Location(location)
+      case Some(locations) => {
+        val newLocation = Location(location)
+        if (locations.contains(newLocation)) { // 重複の挿入を許さないように
+          locations
+        } else {
+          locations :+ newLocation
+        }
+      }
       case None => List(Location(location))
     }
     Location.storeLocations(player.getPersistentDataContainer, newLocations)
