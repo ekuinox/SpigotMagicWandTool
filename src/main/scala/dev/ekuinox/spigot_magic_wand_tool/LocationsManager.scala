@@ -45,7 +45,7 @@ object LocationsManager {
     val container = player.getPersistentDataContainer
 
     val newLocations = Location.getLocations(container) match {
-      case Some(locations) => locations.tail
+      case Some(locations) => locations.init
       case None => List()
     }
 
