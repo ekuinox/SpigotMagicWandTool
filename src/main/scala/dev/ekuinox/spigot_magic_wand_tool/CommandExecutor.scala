@@ -8,6 +8,7 @@ class CommandExecutor(plugin: SpigotMagicWandTool) extends org.bukkit.command.Co
     args.toList.headOption.foreach {
       case "give" => CommandExecutor.give(sender, command, label, args, plugin)
       case "check" => CommandExecutor.check(sender, command, label, args, plugin)
+      case "clear" => CommandExecutor.clear(sender, command, label, args, plugin)
       case "dump" => CommandExecutor.dump(sender, command, label, args, plugin)
       case _ => //do nothing
     }
@@ -38,6 +39,16 @@ object CommandExecutor {
     if (!player.hasPermission(permisisons.Check)) return
 
     player.sendMessage(s"your main hand item is ${if (MagicWand.isMatches(player.getInventory.getItemInMainHand, plugin)) "" else "not "}magicwand")
+  }
+
+  def clear(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: SpigotMagicWandTool): Unit = {
+    if (!sender.isInstanceOf[Player]) return
+
+    val player = sender.asInstanceOf[Player]
+
+    if (!player.hasPermission(permisisons.Write)) return
+
+    LocationsManager.clear(player)
   }
 
   def dump(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: SpigotMagicWandTool): Unit = {
