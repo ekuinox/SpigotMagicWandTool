@@ -31,9 +31,9 @@ object LocationsManager {
   /**
    * プレイヤが登録した座標のListを取得する
    * @param player Player
-   * @return List[Location] 座標のリスト
+   * @return Option[List[Location]] 座標のリスト
    */
-  def get(player: Player): List[Location] = Location.getLocations(player.getPersistentDataContainer).getOrElse(List())
+  def get(player: Player): Option[List[Location]] = Location.getLocations(player.getPersistentDataContainer)
 
   /**
    * 登録した座標をまとめて削除する

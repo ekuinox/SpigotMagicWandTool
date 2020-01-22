@@ -78,7 +78,7 @@ object CommandExecutor {
 
       if (!player.hasPermission(permisisons.Read)) return
 
-      player.sendMessage(LocationsManager.get(player).toString())
+      LocationsManager.get(player).foreach(locations => player.sendMessage(locations.toString()))
     }
   }
 }
