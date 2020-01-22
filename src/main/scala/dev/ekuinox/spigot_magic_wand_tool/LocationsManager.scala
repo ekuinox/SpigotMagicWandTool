@@ -36,4 +36,25 @@ object LocationsManager {
    */
   def clear(player: Player): Unit = Location.clearLocations(player.getPersistentDataContainer)
 
+  /**
+   * 最後に登録した座標を削除する
+   * @param player Player
+   * @return Int 変更後の最後のインデックス
+   */
+  def undo(player: Player): Option[Int] = {
+    val container = player.getPersistentDataContainer
+
+    val newLocations = Location.getLocations(container) match {
+      case Some(locations) => locations.init
+      case None => List()
+    }
+
+    if (newLocations.isEmpty) {
+      Location.clearLocations(container)
+      None
+    } else {
+      Location.storeLocations(container, newLocations)
+      Some(newLocations.length - 1)
+    }
+  }
 }

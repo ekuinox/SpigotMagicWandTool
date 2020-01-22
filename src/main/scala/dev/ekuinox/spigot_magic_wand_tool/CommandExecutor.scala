@@ -9,6 +9,7 @@ class CommandExecutor(plugin: SpigotMagicWandTool) extends org.bukkit.command.Co
       case "give" => CommandExecutor.give(sender, command, label, args, plugin)
       case "check" => CommandExecutor.check(sender, command, label, args, plugin)
       case "clear" => CommandExecutor.clear(sender, command, label, args, plugin)
+      case "undo" => CommandExecutor.undo(sender, command, label, args, plugin)
       case "dump" => CommandExecutor.dump(sender, command, label, args, plugin)
       case _ => //do nothing
     }
@@ -51,7 +52,20 @@ object CommandExecutor {
     LocationsManager.clear(player)
   }
 
-  def dump(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: SpigotMagicWandTool): Unit = {
+  def undo(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: SpigotMagicWandTool): Unit = {
+    if (!sender.isInstanceOf[Player]) return
+
+    val player = sender.asInstanceOf[Player]
+
+    if (!player.hasPermission(permisisons.Write)) return
+
+    player.sendMessage(LocationsManager.undo(player) match {
+      case None => "すべて削除されました"
+      case _ => "一つ削除しました"
+    })
+  }
+
+    def dump(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: SpigotMagicWandTool): Unit = {
     if (!sender.isInstanceOf[Player]) {
       for {
         playerName <- Option(args(1))
