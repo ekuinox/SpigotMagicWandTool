@@ -23,7 +23,7 @@ class PlayerItemHeldEventListener(plugin: SpigotMagicWandTool) extends Listener(
       for {
         locations <- LocationsManager.get(player)
       } {
-        locations.foreach(plugin.particleManager.startParticle(player, _))
+        locations.foreach(plugin.particleManager.startParticle(player, player.getWorld, _))
       }
     }
 
