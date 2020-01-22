@@ -8,6 +8,7 @@ class SpigotMagicWandTool extends JavaPlugin {
 
   instance = Some(this)
   val playerInteractEventListener = new PlayerInteractEventListener(this)
+  val particleManager = new particle.Manager(this)
   
   override def onEnable(): Unit = {
     super.onEnable()
