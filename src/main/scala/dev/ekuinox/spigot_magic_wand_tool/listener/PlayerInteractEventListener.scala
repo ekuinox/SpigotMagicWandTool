@@ -1,5 +1,6 @@
-package dev.ekuinox.spigot_magic_wand_tool
+package dev.ekuinox.spigot_magic_wand_tool.listener
 
+import dev.ekuinox.spigot_magic_wand_tool.{LocationsManager, MagicWand, SpigotMagicWandTool, permisisons}
 import org.bukkit.entity.Player
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
@@ -24,7 +25,6 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
     }
   }
   import InteractEventTimer._
-  import MagicWand._
 
   /**
    * このListenerをPluginManagerに登録する
