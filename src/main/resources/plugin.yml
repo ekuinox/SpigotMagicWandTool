@@ -10,6 +10,11 @@ commands:
 permissions:
   magicwand.*:
     default: op
+    children:
+      magicwand.give: true
+      magicwand.check: true
+      magicwand.write: true
+      magicwand.read: true
   magicwand.give:
     default: op
   magicwand.check:
