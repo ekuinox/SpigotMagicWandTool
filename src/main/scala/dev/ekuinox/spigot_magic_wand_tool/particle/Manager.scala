@@ -11,7 +11,7 @@ class Manager(plugin: SpigotMagicWandTool) {
 
   private val runners: Map[(Player, Location), Runner] = Map[(Player, Location), Runner]()
 
-  def startSpawningParticle(player: Player, world: World, location: Location): Unit = {
+  def startParticle(player: Player, world: World, location: Location): Unit = {
     val runner = new Runner(plugin, world, location)
     runner.runTaskTimerAsynchronously(plugin, 0, PARTICLE_TICK_SPAN)
     runners += ((player, location) -> runner)
