@@ -3,6 +3,7 @@ package dev.ekuinox.spigot_magic_wand_tool.listener
 import dev.ekuinox.spigot_magic_wand_tool.{LocationsManager, MagicWand, SpigotMagicWandTool}
 import org.bukkit.event.player.PlayerItemHeldEvent
 import org.bukkit.event.EventHandler
+import org.bukkit.inventory.ItemStack
 
 class PlayerItemHeldEventListener(plugin: SpigotMagicWandTool) extends Listener(plugin) {
 
@@ -27,16 +28,16 @@ class PlayerItemHeldEventListener(plugin: SpigotMagicWandTool) extends Listener(
       }
     }
 
-    (Option(inventory.getItem(event.getPreviousSlot)), Option(inventory.getItem(event.getNewSlot))) match {
-      case (Some(prevItem), Some(currentItem)) => {
-        (MagicWand.isMatches(prevItem, plugin), MagicWand.isMatches(currentItem, plugin)) match {
-          case (true, false) => stopParticles()
-          case (false, true) => startParticles()
-        }
-      }
-      case (Some(prevItem), None) if MagicWand.isMatches(prevItem, plugin) => stopParticles()
-      case (None, Some(currentItem)) if MagicWand.isMatches(currentItem, plugin) => startParticles()
+    val isMagicWand = (itemStack: ItemStack) => (itemStack != null) && MagicWand.isMatches(itemStack, plugin)
+
+    val execute = (isMagicWand(inventory.getItem(event.getPreviousSlot)), isMagicWand(inventory.getItem(event.getNewSlot))) match {
+      case (true, false) => stopParticles
+      case (false, true) => startParticles
+      case _ => () => {}
     }
+
+    execute()
+
   }
 
 }
