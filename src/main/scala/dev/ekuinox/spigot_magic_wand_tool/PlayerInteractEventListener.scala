@@ -55,6 +55,7 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener 
     } {
       player.sendMessage(s"registered location => {${location.x}, ${location.y}, ${location.z}, index => $index")
       enableTimer(player)
+      plugin.particleManager.startSpawningParticle(clickedBlock.getWorld, location)
     }
   }
 
