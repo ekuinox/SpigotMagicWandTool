@@ -16,5 +16,7 @@ permissions:
     default: true
   magicwand.write:
     default: true
+    children:
+      magicwand.read: true
   magicwand.read:
     default: true
