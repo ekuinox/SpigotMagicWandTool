@@ -8,6 +8,6 @@ class Runner(plugin: SpigotMagicWandTool, world: World, location: Location) exte
   import Manager._
 
   override def run(): Unit = {
-    world.spawnParticle(PARTICLE_TYPE, location.x.toDouble, location.y.toDouble, location.z.toDouble, PARTICLE_COUNT)
+    world.spawnParticle(PARTICLE_TYPE, location.x.toDouble + 0.5, location.y.toDouble - 0.5f, location.z.toDouble + 0.5, PARTICLE_COUNT)
   }
 }
