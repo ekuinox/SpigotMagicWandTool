@@ -25,7 +25,7 @@ object CommandExecutor {
 
     val player = sender.asInstanceOf[Player]
 
-    if (!player.hasPermission(permisisons.Give)) return
+    if (!player.hasPermission(permisison.Give)) return
 
     if (player.getInventory.getItemInMainHand.getType != Material.AIR) return
 
@@ -38,7 +38,7 @@ object CommandExecutor {
 
     val player = sender.asInstanceOf[Player]
 
-    if (!player.hasPermission(permisisons.Check)) return
+    if (!player.hasPermission(permisison.Check)) return
 
     player.sendMessage(s"your main hand item is ${if (MagicWand.isMatches(player.getInventory.getItemInMainHand, plugin)) "" else "not "}magicwand")
   }
@@ -48,7 +48,7 @@ object CommandExecutor {
 
     val player = sender.asInstanceOf[Player]
 
-    if (!player.hasPermission(permisisons.Write)) return
+    if (!player.hasPermission(permisison.Write)) return
 
     for {
       locations <- LocationsManager.get(player)
@@ -63,7 +63,7 @@ object CommandExecutor {
 
     val player = sender.asInstanceOf[Player]
 
-    if (!player.hasPermission(permisisons.Write)) return
+    if (!player.hasPermission(permisison.Write)) return
 
     player.sendMessage(LocationsManager.undo(player) match {
       case None => "すべて削除されました"
@@ -82,7 +82,7 @@ object CommandExecutor {
     } else {
       val player = sender.asInstanceOf[Player]
 
-      if (!player.hasPermission(permisisons.Read)) return
+      if (!player.hasPermission(permisison.Read)) return
 
       LocationsManager.get(player).foreach(locations => player.sendMessage(locations.toString()))
     }

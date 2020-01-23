@@ -1,7 +1,7 @@
 package dev.ekuinox.spigot_magic_wand_tool.listener
 
 import dev.ekuinox.spigot_magic_wand_tool.location.LocationsManager
-import dev.ekuinox.spigot_magic_wand_tool.{MagicWand, SpigotMagicWandTool, permisisons}
+import dev.ekuinox.spigot_magic_wand_tool.{MagicWand, SpigotMagicWandTool, permisison}
 import org.bukkit.entity.Player
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
@@ -40,7 +40,7 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener(
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
     if (!isMatches(event)) return
 
-    if (!event.getPlayer.hasPermission(permisisons.Write)) return
+    if (!event.getPlayer.hasPermission(permisison.Write)) return
 
     val player = event.getPlayer
     for {
