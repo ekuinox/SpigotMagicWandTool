@@ -23,7 +23,7 @@ class Manager(plugin: SpigotMagicWandTool) {
 
 object Manager {
   val PARTICLE_TYPE = Particle.SPELL_WITCH
-  val PARTICLE_COUNT = 100
+  val PARTICLE_COUNT = 10
   val PARTICLE_TICK_SPAN = 10
 
 }
