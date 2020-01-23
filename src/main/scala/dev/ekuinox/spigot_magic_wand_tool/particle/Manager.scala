@@ -21,9 +21,11 @@ class Manager(plugin: SpigotMagicWandTool) {
    * @param location Location
    */
   def startParticle(player: Player, world: World, location: Location): Unit = {
+    val key = (player, location, world)
+    if (runners.contains(key)) return
     val runner = new Runner(plugin, world, location)
+    runners += (key -> runner)
     runner.runTaskTimerAsynchronously(plugin, 0, PARTICLE_TICK_SPAN)
-    runners += ((player, location, world) -> runner)
   }
 
   /**
