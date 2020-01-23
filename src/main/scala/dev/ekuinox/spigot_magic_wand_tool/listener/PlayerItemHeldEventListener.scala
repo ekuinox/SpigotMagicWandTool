@@ -1,6 +1,7 @@
 package dev.ekuinox.spigot_magic_wand_tool.listener
 
-import dev.ekuinox.spigot_magic_wand_tool.{LocationsManager, MagicWand, SpigotMagicWandTool}
+import dev.ekuinox.spigot_magic_wand_tool.location.LocationsManager
+import dev.ekuinox.spigot_magic_wand_tool.{MagicWand, SpigotMagicWandTool}
 import org.bukkit.event.player.PlayerItemHeldEvent
 import org.bukkit.event.EventHandler
 import org.bukkit.inventory.ItemStack
@@ -12,17 +13,9 @@ class PlayerItemHeldEventListener(plugin: SpigotMagicWandTool) extends Listener(
     val player = event.getPlayer
     val inventory = player.getPlayer.getInventory
 
-    val stopParticles = () => {
-      for { locations <- LocationsManager.get(player) } {
-        locations.foreach(plugin.particleManager.stopParticle(player, _))
-      }
-    }
+    val stopParticles = () => LocationsManager.get(player).foreach(plugin.particleManager.stopParticles(player, _))
 
-    val startParticles = () => {
-      for { locations <- LocationsManager.get(player) } {
-        locations.foreach(plugin.particleManager.startParticle(player, player.getWorld, _))
-      }
-    }
+    val startParticles = () => LocationsManager.get(player).foreach(plugin.particleManager.startParticles(player, _))
 
     val isMagicWand = (itemStack: ItemStack) => (itemStack != null) && MagicWand.isMatches(itemStack, plugin)
 
