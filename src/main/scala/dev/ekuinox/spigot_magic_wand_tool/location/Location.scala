@@ -10,7 +10,7 @@ case class Location(x: Int, y: Int, z: Int) {
 }
 
 case object Location {
-  private lazy val NAMESPACED_KEY: NamespacedKey = SpigotMagicWandTool.getInstance.get.makeNamespacedKey("Locations")
+  private val NAMESPACED_KEY_ROOT = "Locations"
   private val CONTAINER_DATA_TYPE = PersistentDataType.INTEGER_ARRAY
   private val ARRAY_GROUPED_SIZE = 3
 
@@ -18,17 +18,20 @@ case object Location {
 
   def apply(location: BukkitLocation) = new Location(location.getX.toInt, location.getY.toInt, location.getZ.toInt)
 
-  def getLocations(container: PersistentDataContainer): Option[List[Location]] = {
-    if (!container.has(NAMESPACED_KEY, CONTAINER_DATA_TYPE)) return None
-    val data = container.get(NAMESPACED_KEY, CONTAINER_DATA_TYPE)
+  def getLocations(world: World, container: PersistentDataContainer): Option[List[Location]] = {
+    if (!container.has(makeNamespacedKey(world), CONTAINER_DATA_TYPE)) return None
+    val data = container.get(makeNamespacedKey(world), CONTAINER_DATA_TYPE)
     if (data.length % ARRAY_GROUPED_SIZE != 0) return None
     Some(data.grouped(ARRAY_GROUPED_SIZE).toList.map(Location(_)))
   }
 
-  def storeLocations(container: PersistentDataContainer, locations: List[Location]): Unit = {
-    container.set(NAMESPACED_KEY, CONTAINER_DATA_TYPE, locations.flatMap(_.toList).toArray)
+  def storeLocations(world: World, container: PersistentDataContainer, locations: List[Location]): Unit = {
+    container.set(makeNamespacedKey(world), CONTAINER_DATA_TYPE, locations.flatMap(_.toList).toArray)
   }
 
-  def clearLocations(container: PersistentDataContainer): Unit = container.remove(NAMESPACED_KEY)
+  def clearLocations(world: World, container: PersistentDataContainer): Unit = container.remove(makeNamespacedKey(world))
+
+  // ワールドに応じたNamespacedKeyを生成する
+  private def makeNamespacedKey(world: World): NamespacedKey = SpigotMagicWandTool.getInstance.get.makeNamespacedKey(s"$NAMESPACED_KEY_ROOT.${world.getUID}")
 
 }
