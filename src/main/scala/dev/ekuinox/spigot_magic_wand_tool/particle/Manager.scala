@@ -20,9 +20,9 @@ class Manager(plugin: SpigotMagicWandTool) {
 
   def startParticle(player: Player, location: Location): Unit = startParticle(player, player.getWorld, location)
 
-  def stopParticle(player: Player, location: Location, world: World): Unit = runners.remove((player, location, world)).foreach(_.cancel())
+  def stopParticle(player: Player, world: World, location: Location): Unit = runners.remove((player, location, world)).foreach(_.cancel())
 
-  def stopParticle(player: Player, location: Location): Unit = stopParticle(player, location, player.getWorld)
+  def stopParticle(player: Player, location: Location): Unit = stopParticle(player, player.getWorld, location)
 
 }
 
