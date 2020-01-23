@@ -7,6 +7,8 @@ import org.bukkit.{Particle, World}
 
 
 class Manager(plugin: SpigotMagicWandTool) {
+  type Locations = List[Location]
+
   import Manager._
   import collection.mutable.Map
 
@@ -32,6 +34,21 @@ class Manager(plugin: SpigotMagicWandTool) {
   def startParticle(player: Player, location: Location): Unit = startParticle(player, player.getWorld, location)
 
   /**
+   * リストを元に startParticle を行う
+   * @param player Player
+   * @param world World
+   * @param locations Locations
+   */
+  def startParticles(player: Player, world: World, locations: Locations): Unit = locations.foreach(startParticle(player, world, _))
+
+  /**
+   * Player のいる World を元に startParticles を行う
+   * @param player Player
+   * @param locations Locations
+   */
+  def startParticles(player: Player, locations: Locations): Unit = startParticles(player, player.getWorld, locations)
+
+  /**
    * Runner の停止
    * @param player Player
    * @param world World
@@ -45,6 +62,21 @@ class Manager(plugin: SpigotMagicWandTool) {
    * @param location Location
    */
   def stopParticle(player: Player, location: Location): Unit = stopParticle(player, player.getWorld, location)
+
+  /**
+   * リストを元に stopParticle を行う
+   * @param player Player
+   * @param world World
+   * @param locations Locations
+   */
+  def stopParticles(player: Player, world: World, locations: Locations): Unit = locations.foreach(stopParticle(player, world, _))
+
+  /**
+   * Player のいる World を元に stopParticle を行う
+   * @param player Player
+   * @param locations Locations
+   */
+  def stopParticles(player: Player, locations: Locations): Unit = stopParticles(player, player.getWorld, locations)
 
 }
 
