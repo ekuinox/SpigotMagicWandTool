@@ -10,15 +10,19 @@ class Manager(plugin: SpigotMagicWandTool) {
   import Manager._
   import collection.mutable.Map
 
-  private val runners: Map[(Player, Location), Runner] = Map[(Player, Location), Runner]()
+  private val runners: Map[(Player, Location, World), Runner] = Map[(Player, Location, World), Runner]()
 
   def startParticle(player: Player, world: World, location: Location): Unit = {
     val runner = new Runner(plugin, world, location)
     runner.runTaskTimerAsynchronously(plugin, 0, PARTICLE_TICK_SPAN)
-    runners += ((player, location) -> runner)
+    runners += ((player, location, world) -> runner)
   }
 
-  def stopParticle(player: Player, location: Location): Unit = runners.get((player, location)).foreach(runner => runner.cancel())
+  def startParticle(player: Player, location: Location): Unit = startParticle(player, player.getWorld, location)
+
+  def stopParticle(player: Player, location: Location, world: World): Unit = runners.remove((player, location, world)).foreach(_.cancel())
+
+  def stopParticle(player: Player, location: Location): Unit = stopParticle(player, location, player.getWorld)
 
 }
 
