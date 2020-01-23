@@ -49,7 +49,12 @@ object CommandExecutor {
 
     if (!player.hasPermission(permisisons.Write)) return
 
-    LocationsManager.clear(player)
+    for {
+      locations <- LocationsManager.get(player)
+    } {
+      locations.foreach(location => plugin.particleManager.stopParticle(player, location))
+      LocationsManager.clear(player)
+    }
   }
 
   def undo(sender: CommandSender, command: Command, label: String, args: Array[String], plugin: SpigotMagicWandTool): Unit = {
@@ -78,7 +83,7 @@ object CommandExecutor {
 
       if (!player.hasPermission(permisisons.Read)) return
 
-      player.sendMessage(LocationsManager.get(player).toString())
+      LocationsManager.get(player).foreach(locations => player.sendMessage(locations.toString()))
     }
   }
 }

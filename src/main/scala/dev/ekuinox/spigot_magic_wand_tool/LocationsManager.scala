@@ -12,30 +12,28 @@ object LocationsManager {
    * プレイヤに対して座標を登録する
    * @param player Player
    * @param location Location
-   * @return Int 追加した座標のインデックス
+   * @return Option[(Int, Location)] 挿入に成功した場合、その要素のインデックスとLocationをタプルで返す
    */
-  def set(player: Player, location: BukkitLocation): Int = {
+  def set(player: Player, location: BukkitLocation): Option[(Int, Location)] = {
     val newLocations = Location.getLocations(player.getPersistentDataContainer) match {
       case Some(locations) => {
         val newLocation = Location(location)
-        if (locations.contains(newLocation)) { // 重複の挿入を許さないように
-          locations
-        } else {
-          locations :+ newLocation
-        }
+        // 重複の挿入を許さないように
+        if (locations.contains(newLocation)) return None
+        locations :+ newLocation
       }
       case None => List(Location(location))
     }
     Location.storeLocations(player.getPersistentDataContainer, newLocations)
-    newLocations.length - 1
+    Some((newLocations.length - 1, newLocations.last))
   }
 
   /**
    * プレイヤが登録した座標のListを取得する
    * @param player Player
-   * @return List[Location] 座標のリスト
+   * @return Option[List[Location]] 座標のリスト
    */
-  def get(player: Player): List[Location] = Location.getLocations(player.getPersistentDataContainer).getOrElse(List())
+  def get(player: Player): Option[List[Location]] = Location.getLocations(player.getPersistentDataContainer)
 
   /**
    * 登録した座標をまとめて削除する
@@ -46,22 +44,22 @@ object LocationsManager {
   /**
    * 最後に登録した座標を削除する
    * @param player Player
-   * @return Int 変更後の最後のインデックス
+   * @return Option[(Int, Location)] 削除した要素とインデックス
    */
-  def undo(player: Player): Option[Int] = {
+  def undo(player: Player): Option[(Int, Location)] = {
     val container = player.getPersistentDataContainer
-
-    val newLocations = Location.getLocations(container) match {
-      case Some(locations) => locations.init
-      case None => List()
-    }
-
-    if (newLocations.isEmpty) {
-      Location.clearLocations(container)
-      None
-    } else {
+    for {
+      locations <- Location.getLocations(container)
+    } {
+      val newLocations = locations.init
+      if (newLocations.isEmpty) {
+        Location.clearLocations(container)
+        return Some((0, locations.last))
+      }
       Location.storeLocations(container, newLocations)
-      Some(newLocations.length - 1)
+      return Some((newLocations.length - 1, locations.last))
     }
+
+    None
   }
 }
