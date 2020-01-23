@@ -1,7 +1,8 @@
-package dev.ekuinox.spigot_magic_wand_tool
+package dev.ekuinox.spigot_magic_wand_tool.location
 
-import org.bukkit.{NamespacedKey, World, Location => BukkitLocation}
+import dev.ekuinox.spigot_magic_wand_tool.SpigotMagicWandTool
 import org.bukkit.persistence.{PersistentDataContainer, PersistentDataType}
+import org.bukkit.{NamespacedKey, World, Location => BukkitLocation}
 
 case class Location(x: Int, y: Int, z: Int) {
   def toList = List(x, y, z)

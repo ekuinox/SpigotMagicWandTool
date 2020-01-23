@@ -1,7 +1,7 @@
-package dev.ekuinox.spigot_magic_wand_tool
+package dev.ekuinox.spigot_magic_wand_tool.location
 
-import org.bukkit.{Location => BukkitLocation}
 import org.bukkit.entity.Player
+import org.bukkit.{Location => BukkitLocation}
 
 /**
  * プレイヤが選択した座標情報を保管,管理する

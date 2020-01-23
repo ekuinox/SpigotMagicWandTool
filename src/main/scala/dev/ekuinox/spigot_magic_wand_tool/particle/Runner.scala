@@ -1,6 +1,7 @@
 package dev.ekuinox.spigot_magic_wand_tool.particle
 
-import dev.ekuinox.spigot_magic_wand_tool.{Location, SpigotMagicWandTool}
+import dev.ekuinox.spigot_magic_wand_tool.SpigotMagicWandTool
+import dev.ekuinox.spigot_magic_wand_tool.location.Location
 import org.bukkit.World
 import org.bukkit.scheduler.BukkitRunnable
 

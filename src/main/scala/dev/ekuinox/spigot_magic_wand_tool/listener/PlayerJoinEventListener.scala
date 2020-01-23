@@ -1,6 +1,7 @@
 package dev.ekuinox.spigot_magic_wand_tool.listener
 
-import dev.ekuinox.spigot_magic_wand_tool.{LocationsManager, MagicWand, SpigotMagicWandTool}
+import dev.ekuinox.spigot_magic_wand_tool.location.LocationsManager
+import dev.ekuinox.spigot_magic_wand_tool.{MagicWand, SpigotMagicWandTool}
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerJoinEvent
 
