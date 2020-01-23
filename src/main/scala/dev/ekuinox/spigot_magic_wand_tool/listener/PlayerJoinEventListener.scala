@@ -9,11 +9,7 @@ class PlayerJoinEventListener(plugin: SpigotMagicWandTool) extends Listener(plug
 
   @EventHandler
   def onPlayerJoin(event: PlayerJoinEvent): Unit = {
-    for { locations <- LocationsManager.get(event.getPlayer) } {
-      if (MagicWand.isMatches(event.getPlayer.getInventory.getItemInMainHand, plugin)) {
-        locations.foreach(plugin.particleManager.startParticle(event.getPlayer, event.getPlayer.getWorld,  _))
-      }
-    }
+    LocationsManager.get(event.getPlayer).foreach(plugin.particleManager.startParticles(event.getPlayer, _))
   }
 
 }
