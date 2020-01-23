@@ -1,6 +1,6 @@
 package dev.ekuinox.spigot_magic_wand_tool
 
-import dev.ekuinox.spigot_magic_wand_tool.listener.{PlayerInteractEventListener, PlayerItemHeldEventListener, PlayerLoginEventListener, PlayerQuitEventListener}
+import dev.ekuinox.spigot_magic_wand_tool.listener.{PlayerInteractEventListener, PlayerItemHeldEventListener, PlayerJoinEventListener, PlayerQuitEventListener}
 import org.bukkit.NamespacedKey
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -10,7 +10,7 @@ class SpigotMagicWandTool extends JavaPlugin {
   instance = Some(this)
   val playerInteractEventListener = new PlayerInteractEventListener(this)
   val playerItemHeldEventListener = new PlayerItemHeldEventListener(this)
-  val playerLoginEventListener = new PlayerLoginEventListener(this)
+  val playerJoinEventListener = new PlayerJoinEventListener(this)
   val playerQuitEventListener = new PlayerQuitEventListener(this)
   val particleManager = new particle.Manager(this)
   
@@ -19,7 +19,7 @@ class SpigotMagicWandTool extends JavaPlugin {
     getCommand("magicwand").setExecutor(new CommandExecutor(this))
     playerInteractEventListener.register()
     playerItemHeldEventListener.register()
-    playerLoginEventListener.register()
+    playerJoinEventListener.register()
     playerQuitEventListener.register()
   }
 
