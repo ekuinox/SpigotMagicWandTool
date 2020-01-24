@@ -16,7 +16,7 @@ class Manager(plugin: SpigotMagicWandTool) {
    * @return Option[(Int, Location)] 挿入に成功した場合、その要素のインデックスとLocationをタプルで返す
    */
   def set(player: Player, location: BukkitLocation): Option[(Int, Location)] = {
-    val newLocations = Location.getLocations(location.getWorld, player.getPersistentDataContainer) match {
+    val newLocations = Location.getLocations(plugin, location.getWorld, player.getPersistentDataContainer) match {
       case Some(locations) => {
         val newLocation = Location(location)
         // 重複の挿入を許さないように
@@ -25,7 +25,7 @@ class Manager(plugin: SpigotMagicWandTool) {
       }
       case None => List(Location(location))
     }
-    Location.storeLocations(location.getWorld, player.getPersistentDataContainer, newLocations)
+    Location.storeLocations(plugin, location.getWorld, player.getPersistentDataContainer, newLocations)
     Some((newLocations.length - 1, newLocations.last))
   }
 
@@ -34,7 +34,7 @@ class Manager(plugin: SpigotMagicWandTool) {
    * @param player Player
    * @return Option[List[Location]] 座標のリスト
    */
-  def get(player: Player, world: World): Option[List[Location]] = Location.getLocations(world, player.getPersistentDataContainer)
+  def get(player: Player, world: World): Option[List[Location]] = Location.getLocations(plugin, world, player.getPersistentDataContainer)
 
   /**
    * プレイヤの現在いるワールドを使って get する
@@ -48,7 +48,7 @@ class Manager(plugin: SpigotMagicWandTool) {
    * @param player Player
    * @param world World
    */
-  def clear(player: Player, world: World): Unit = Location.clearLocations(world, player.getPersistentDataContainer)
+  def clear(player: Player, world: World): Unit = Location.clearLocations(plugin, world, player.getPersistentDataContainer)
 
   /**
    * プレイヤの現在いるワールドを使って clear する
@@ -65,14 +65,14 @@ class Manager(plugin: SpigotMagicWandTool) {
   def undo(player: Player, world: World): Option[(Int, Location)] = {
     val container = player.getPersistentDataContainer
     for {
-      locations <- Location.getLocations(world, container)
+      locations <- Location.getLocations(plugin, world, container)
     } {
       val newLocations = locations.init
       if (newLocations.isEmpty) {
-        Location.clearLocations(world, container)
+        Location.clearLocations(plugin, world, container)
         return Some((0, locations.last))
       }
-      Location.storeLocations(world, container, newLocations)
+      Location.storeLocations(plugin, world, container, newLocations)
       return Some((newLocations.length, locations.last))
     }
 
