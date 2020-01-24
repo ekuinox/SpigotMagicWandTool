@@ -72,7 +72,7 @@ object LocationsManager {
         return Some((0, locations.last))
       }
       Location.storeLocations(world, container, newLocations)
-      return Some((newLocations.length - 1, locations.last))
+      return Some((newLocations.length, locations.last))
     }
 
     None
