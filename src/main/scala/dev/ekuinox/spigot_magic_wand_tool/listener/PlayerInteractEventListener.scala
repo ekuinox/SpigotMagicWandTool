@@ -47,7 +47,7 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener(
       clickedBlock <- Option(event.getClickedBlock)
       (index, location) <- LocationsManager.set(player, clickedBlock.getRelative(event.getBlockFace).getLocation())
     } {
-      player.sendMessage(s"registered location => {${location.x}, ${location.y}, ${location.z}, index => $index")
+      player.sendMessage(s"registered $index => $location")
       enableTimer(player)
       plugin.particleManager.startParticle(player, location)
     }
