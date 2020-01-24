@@ -10,13 +10,12 @@ object Undo extends SubCommand {
   override val name: String = "undo"
 
   override def run(plugin: SpigotMagicWandTool, sender: CommandSender, command: Command, label: String, args: Array[String]): Unit = {
-    Try(sender.asInstanceOf[Player]).toOption match {
-      case Some(player) if player.hasPermission(permisison.Write) =>
-        player.sendMessage(LocationsManager.undo(player) match {
-          case None => "すべて削除されました"
-          case _ => "一つ削除しました"
-        })
-      case _ =>
+    for {
+      player <- Try(sender.asInstanceOf[Player]).toOption.flatMap(player => if (player.hasPermission(permisison.Write)) Some(player) else None)
+      (index, location) <- LocationsManager.undo(player)
+    } {
+      player.sendMessage(s"${index} => ${location}を削除しました")
+      plugin.particleManager.stopParticle(player, location)
     }
   }
 }
