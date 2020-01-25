@@ -4,6 +4,9 @@ import dev.ekuinox.spigot_magic_wand_tool.location.Location
 import org.bukkit.World
 import org.bukkit.entity.Player
 
+/**
+ * 外部の JavaPlugin から参照してほしい
+ */
 package object api {
 
   type Locations = List[Location]
