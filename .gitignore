@@ -3,7 +3,7 @@
 
 dist/*
 target/
-src/main/resources/application.conf
+spigot-plugin/src/main/resources/application.conf
 lib_managed/
 src_managed/
 project/boot/

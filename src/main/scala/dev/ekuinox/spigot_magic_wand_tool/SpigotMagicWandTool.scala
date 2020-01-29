@@ -18,6 +18,7 @@ class SpigotMagicWandTool extends JavaPlugin {
   )
 
   val particleManager = new particle.Manager(this)
+  val locationsManager = new location.Manager(this)
   
   override def onEnable(): Unit = {
     super.onEnable()

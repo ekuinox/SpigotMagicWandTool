@@ -1,8 +1,8 @@
 package dev.ekuinox.spigot_magic_wand_tool.subcommand
+
 import dev.ekuinox.spigot_magic_wand_tool.{MagicWand, SpigotMagicWandTool, permisison}
 import org.bukkit.command.{Command, CommandSender}
 import org.bukkit.entity.Player
-
 import scala.util.Try
 
 object Check extends SubCommand {
