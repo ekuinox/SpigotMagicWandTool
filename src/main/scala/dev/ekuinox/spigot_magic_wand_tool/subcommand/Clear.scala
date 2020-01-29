@@ -1,5 +1,6 @@
 package dev.ekuinox.spigot_magic_wand_tool.subcommand
 
+import dev.ekuinox.spigot_magic_wand_tool.event.LocationsClearEvent
 import dev.ekuinox.spigot_magic_wand_tool.{SpigotMagicWandTool, permisison}
 import org.bukkit.command.{Command, CommandSender}
 import org.bukkit.entity.Player
@@ -14,6 +15,7 @@ object Clear extends SubCommand {
         for (locations <- plugin.locationsManager.get(player)) {
           locations.foreach(location => plugin.particleManager.stopParticle(player, location))
           plugin.locationsManager.clear(player)
+          plugin.getServer.getPluginManager.callEvent(LocationsClearEvent(player))
         }
       case _ =>
     }
