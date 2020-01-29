@@ -13,5 +13,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Make fat jar
-        run: sbt assembly
+      - name: Build Library
+        run: sbt core/package
+      - name: Build Plugin
+        run: sbt plugin/assembly
