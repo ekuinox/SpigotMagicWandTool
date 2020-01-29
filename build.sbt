@@ -18,12 +18,9 @@ lazy val commonSettings = Seq(
   )
 )
 
-lazy val main = (project in file("."))
+lazy val core = (project in file("."))
   .settings(commonSettings: _*)
 
-lazy val api = (project in file("api"))
-  .dependsOn(main)
+lazy val plugin = (project in file("spigot-plugin"))
+  .dependsOn(core)
   .settings(commonSettings: _*)
-  .settings(
-    excludeFilter in unmanagedResources := "plugin.yml"
-  )
