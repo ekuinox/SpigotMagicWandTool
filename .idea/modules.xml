@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SpigotMagicWandTool.iml" filepath="$PROJECT_DIR$/.idea/modules/SpigotMagicWandTool.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SpigotMagicWandTool-build.iml" filepath="$PROJECT_DIR$/.idea/modules/SpigotMagicWandTool-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core.iml" filepath="$PROJECT_DIR$/.idea/modules/core.iml" group="SpigotMagicWandTool" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/plugin.iml" group="SpigotMagicWandTool" />
     </modules>
   </component>
 </project>
