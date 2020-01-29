@@ -1,5 +1,6 @@
 package dev.ekuinox.spigot_magic_wand_tool.listener
 
+import dev.ekuinox.spigot_magic_wand_tool.event.LocationRegisteredEvent
 import dev.ekuinox.spigot_magic_wand_tool.{MagicWand, SpigotMagicWandTool, permisison}
 import org.bukkit.entity.Player
 import org.bukkit.event.block.Action
@@ -46,6 +47,7 @@ class PlayerInteractEventListener(plugin: SpigotMagicWandTool) extends Listener(
       clickedBlock <- Option(event.getClickedBlock)
       (index, location) <- plugin.locationsManager.set(player, clickedBlock.getRelative(event.getBlockFace).getLocation())
     } {
+      plugin.getServer.getPluginManager.callEvent(LocationRegisteredEvent(player, clickedBlock.getWorld, location))
       player.sendMessage(s"registered $index => $location")
       enableTimer(player)
       plugin.particleManager.startParticle(player, location)
